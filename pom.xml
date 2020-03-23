@@ -8,6 +8,50 @@
   <artifactId>junit-utils</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+  <url>https://github.com/fingerprints/junit-utils</url>
+
+  <scm>
+    <url>https://github.com/fingerprints/junit-utils.git</url>
+    <developerConnection>scm:git:git@github.com:fingerprints/junit-utils.git</developerConnection>
+  </scm>
+
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>fuzails</id>
+      <name>Fuzail Sarang</name>
+      <email>fuzail@fingerprintsoft.org</email>
+      <url>https://github.com/fuzails</url>
+      <organization>Fingerprints Software (Pty) Ltd.</organization>
+      <organizationUrl>http://www.fingerprintsoft.co</organizationUrl>
+      <roles>
+        <role>Project-Administrator</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>+2</timezone>
+    </developer>
+  </developers>
+
+  <distributionManagement>
+    <repository>
+      <id>fingerprints.maven</id>
+      <name>Fingerprints Maven Repo</name>
+      <url>https://maven.fingerprintsoft.co/repository/maven-releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>fingerprints.maven.snapshots</id>
+      <name>Fingerprints Maven Snapshot Repo</name>
+      <url>https://maven.fingerprintsoft.co/repository/maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -15,6 +59,12 @@
     <junit.vintage.version>5.4.2</junit.vintage.version>
     <junit-platform.version>1.2.0</junit-platform.version>
     <junit-jupiter.version>5.4.2</junit-jupiter.version>
+    <gitflow.auto.version>false</gitflow.auto.version>
+    <gitflow.squash>false</gitflow.squash>
+    <gitflow.no.deploy>true</gitflow.no.deploy>
+    <gitflow.pull.develop>true</gitflow.pull.develop>
+    <gitflow.pull.master>true</gitflow.pull.master>
+    <skip-ossrh-deploy>true</skip-ossrh-deploy>
   </properties>
 
   <dependencies>
@@ -22,24 +72,108 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
       <version>${junit-jupiter.version}</version>
-      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.9.5</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.9.9.3</version>
-      <scope>compile</scope>
+      <version>2.9.5</version>
     </dependency>
     <dependency>
-      <groupId>com.vaadin.external.google</groupId>
-      <artifactId>android-json</artifactId>
-      <version>0.0.20131108.vaadin1</version>
-      <scope>compile</scope>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20180813</version>
     </dependency>
+
   </dependencies>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <distributionManagement>
+        <repository>
+          <id>ossrh</id>
+          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+          <id>ossrh</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+      </distributionManagement>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.7</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+              <skipNexusStagingDeployMojo>${skip-ossrh-deploy}</skipNexusStagingDeployMojo>
+              <skipStaging>${skip-ossrh-deploy}</skipStaging>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>external.atlassian.jgitflow</groupId>
+        <artifactId>jgitflow-maven-plugin</artifactId>
+        <version>1.0-m5.1</version>
+        <configuration>
+          <pushFeatures>true</pushFeatures>
+          <pushHotfixes>true</pushHotfixes>
+          <pushReleases>true</pushReleases>
+          <enableSshAgent>true</enableSshAgent>
+          <autoVersionSubmodules>${gitflow.auto.version}</autoVersionSubmodules>
+          <squash>${gitflow.squash}</squash>
+          <noDeploy>${gitflow.no.deploy}</noDeploy>
+          <pullDevelop>${gitflow.pull.develop}</pullDevelop>
+          <pullMaster>${gitflow.pull.master}</pullMaster>
+        </configuration>
+        <dependencies>
+          <!-- The next 3 dependencies were added due to https://github.com/shillner/unleash-scm-provider-git/issues/15 -->
+          <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.55</version>
+          </dependency>
+          <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+            <version>5.3.0.201903130848-r</version>
+          </dependency>
+          <dependency>
+            <groupId>com.itemis.maven.plugins</groupId>
+            <artifactId>unleash-scm-provider-api</artifactId>
+            <version>2.9.3</version>
+          </dependency>
+        </dependencies>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -51,6 +185,5 @@
       </plugin>
     </plugins>
   </build>
-
 
 </project>
