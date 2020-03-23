@@ -141,9 +141,9 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>external.atlassian.jgitflow</groupId>
-        <artifactId>jgitflow-maven-plugin</artifactId>
-        <version>1.0-m5.1</version>
+        <groupId>com.amashchenko.maven.plugin</groupId>
+        <artifactId>gitflow-maven-plugin</artifactId>
+        <version>1.14.0</version>
         <configuration>
           <pushFeatures>true</pushFeatures>
           <pushHotfixes>true</pushHotfixes>
@@ -155,24 +155,6 @@
           <pullDevelop>${gitflow.pull.develop}</pullDevelop>
           <pullMaster>${gitflow.pull.master}</pullMaster>
         </configuration>
-        <dependencies>
-          <!-- The next 3 dependencies were added due to https://github.com/shillner/unleash-scm-provider-git/issues/15 -->
-          <dependency>
-            <groupId>com.jcraft</groupId>
-            <artifactId>jsch</artifactId>
-            <version>0.1.55</version>
-          </dependency>
-          <dependency>
-            <groupId>org.eclipse.jgit</groupId>
-            <artifactId>org.eclipse.jgit</artifactId>
-            <version>5.3.0.201903130848-r</version>
-          </dependency>
-          <dependency>
-            <groupId>com.itemis.maven.plugins</groupId>
-            <artifactId>unleash-scm-provider-api</artifactId>
-            <version>2.9.3</version>
-          </dependency>
-        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
