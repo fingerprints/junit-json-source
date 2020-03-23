@@ -145,15 +145,14 @@
         <artifactId>gitflow-maven-plugin</artifactId>
         <version>1.14.0</version>
         <configuration>
-          <pushFeatures>true</pushFeatures>
-          <pushHotfixes>true</pushHotfixes>
-          <pushReleases>true</pushReleases>
-          <enableSshAgent>true</enableSshAgent>
-          <autoVersionSubmodules>${gitflow.auto.version}</autoVersionSubmodules>
-          <squash>${gitflow.squash}</squash>
-          <noDeploy>${gitflow.no.deploy}</noDeploy>
-          <pullDevelop>${gitflow.pull.develop}</pullDevelop>
-          <pullMaster>${gitflow.pull.master}</pullMaster>
+          <productionBranch>master</productionBranch>
+          <developmentBranch>develop</developmentBranch>
+          <featureBranchPrefix>feature/</featureBranchPrefix>
+          <releaseBranchPrefix>release/</releaseBranchPrefix>
+          <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
+          <supportBranchPrefix>support/</supportBranchPrefix>
+          <versionTagPrefix></versionTagPrefix>
+          <origin>origin</origin>
         </configuration>
       </plugin>
       <plugin>
