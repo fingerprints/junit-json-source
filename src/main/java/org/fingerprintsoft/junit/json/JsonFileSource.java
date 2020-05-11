@@ -86,6 +86,7 @@ public @interface JsonFileSource {
     /**
      * The JSON classpath resources to use as the sources of arguments; must not be
      * empty.
+     * @return list of file resource names
      */
     String[] resources();
 
@@ -94,6 +95,7 @@ public @interface JsonFileSource {
      *
      * <p>Defaults to {@code "UTF-8"}.
      *
+     * @return the file encoding
      * @see java.nio.charset.StandardCharsets
      */
     String encoding() default "UTF-8";
