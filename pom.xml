@@ -6,7 +6,7 @@
 
   <groupId>org.fingerprintsoft.junit</groupId>
   <artifactId>junit-utils</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2-SNAPSHOT</version>
   <name>junit-utils</name>
   <description>JUnit 5 support for JSON Parameterized Test Sources and other Utilities.</description>
 
