@@ -4,29 +4,23 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.support.AnnotationConsumer;
 import org.junit.platform.commons.util.PreconditionViolationException;
 import org.junit.platform.commons.util.Preconditions;
+
+import static java.util.stream.StreamSupport.stream;
 
 public class JsonFileArgumentsProvider implements ArgumentsProvider, AnnotationConsumer<JsonFileSource> {
 
@@ -62,7 +56,7 @@ public class JsonFileArgumentsProvider implements ArgumentsProvider, AnnotationC
     public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
         return Arrays.stream(resources)
                 .map(resource -> openInputStream(context, resource))
-                .map(inputStream -> {
+                .flatMap(inputStream -> {
                     try {
                         return toArguments(inputStream);
                     } catch (Exception e) {
@@ -78,7 +72,7 @@ public class JsonFileArgumentsProvider implements ArgumentsProvider, AnnotationC
                 () -> "Classpath resource [" + resource + "] does not exist");
     }
 
-    private Arguments toArguments(InputStream inputStream) throws Exception {
+    private Stream<Arguments> toArguments(InputStream inputStream) throws Exception {
         StringBuilder textBuilder = new StringBuilder();
         try (Reader reader = new BufferedReader(new InputStreamReader
                 (inputStream, Charset.forName(StandardCharsets.UTF_8.name())))) {
@@ -88,7 +82,11 @@ public class JsonFileArgumentsProvider implements ArgumentsProvider, AnnotationC
             }
         }
         String jsonString = textBuilder.toString();
-        return Utils.arguments(df, jsonString);
+        JSONArray array = new JSONArray(jsonString);
+
+        return stream(array.spliterator(), false).map(
+                o -> Utils.arguments(df, o.toString())
+        );
     }
 
 }
