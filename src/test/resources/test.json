@@ -1,0 +1,23 @@
+[
+  [
+    {
+      "value": "1",
+      "type": "java.math.BigDecimal"
+    },
+    {
+      "value": "1",
+      "type": "java.math.BigDecimal"
+    }
+  ],
+  [
+    {
+      "value": "2",
+      "type": "java.math.BigDecimal"
+    },
+    {
+      "value": "2",
+      "type": "java.math.BigDecimal"
+    }
+  ]
+
+]
