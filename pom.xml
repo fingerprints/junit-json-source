@@ -67,7 +67,7 @@
     <gitflow.pull.develop>true</gitflow.pull.develop>
     <gitflow.pull.master>true</gitflow.pull.master>
     <skip-ossrh-deploy>true</skip-ossrh-deploy>
-    <jackson.databind.version>2.9.10.4</jackson.databind.version>
+    <jackson.databind.version>2.9.10.7</jackson.databind.version>
   </properties>
 
   <dependencies>
