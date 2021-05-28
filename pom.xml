@@ -6,7 +6,7 @@
 
   <groupId>org.fingerprintsoft.junit</groupId>
   <artifactId>junit-utils</artifactId>
-  <version>1.1.2-SNAPSHOT</version>
+  <version>1.2.0-SNAPSHOT</version>
   <name>junit-utils</name>
   <description>JUnit 5 support for JSON Parameterized Test Sources and other Utilities.</description>
 
@@ -58,16 +58,16 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
-    <junit.vintage.version>5.5.0</junit.vintage.version>
-    <junit-platform.version>1.5.0</junit-platform.version>
-    <junit-jupiter.version>5.5.0</junit-jupiter.version>
+    <junit.vintage.version>5.5.2</junit.vintage.version>
+    <junit-platform.version>1.5.2</junit-platform.version>
+    <junit-jupiter.version>5.5.2</junit-jupiter.version>
+    <jackson.databind.version>2.9.10.7</jackson.databind.version>
     <gitflow.auto.version>false</gitflow.auto.version>
     <gitflow.squash>false</gitflow.squash>
     <gitflow.no.deploy>true</gitflow.no.deploy>
     <gitflow.pull.develop>true</gitflow.pull.develop>
     <gitflow.pull.master>true</gitflow.pull.master>
     <skip-ossrh-deploy>true</skip-ossrh-deploy>
-    <jackson.databind.version>2.9.10.4</jackson.databind.version>
   </properties>
 
   <dependencies>
