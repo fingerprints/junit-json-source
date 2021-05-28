@@ -58,9 +58,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
-    <junit.vintage.version>5.4.2</junit.vintage.version>
-    <junit-platform.version>1.2.0</junit-platform.version>
-    <junit-jupiter.version>5.4.2</junit-jupiter.version>
+    <junit.vintage.version>5.5.0</junit.vintage.version>
+    <junit-platform.version>1.5.0</junit-platform.version>
+    <junit-jupiter.version>5.5.0</junit-jupiter.version>
     <gitflow.auto.version>false</gitflow.auto.version>
     <gitflow.squash>false</gitflow.squash>
     <gitflow.no.deploy>true</gitflow.no.deploy>
