@@ -150,6 +150,24 @@ public class TestJsonFileArgumentProvider {
 }
 ```
 
+## 3. @EnabledIfReachable
+@EnabledIfReachable enables the test if the URL is reachable, and disables it otherwise.
+
+```java
+public class TestJsonFileArgumentProvider {
+    @Test
+    @EnabledIfReachable(
+            url = "http://google.com/",
+            timeoutMillis = 1000)
+    void reachableUrl() { }
+
+    @Test
+    @EnabledIfReachable(
+            url = "http://com.google/",
+            timeoutMillis = 1000)
+    void unreachableUrl() { }
+}
+```
 
 
 
