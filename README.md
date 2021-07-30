@@ -1,3 +1,5 @@
+![JUnit Utils](JUtils-06.svg){width=251 height=156}
+
 # junit-json-source
 JUnit 5 support for JSON Parameterized Test Sources
 
